@@ -1,0 +1,348 @@
+2026-03-18 23:54:44,478 [INFO] Бот с контекстом запущен...
+2026-03-18 23:54:54,842 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/start'
+2026-03-18 23:54:54,844 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-18 23:54:54,908 [INFO] Retrying request to /chat/completions in 0.376009 seconds
+2026-03-18 23:54:55,287 [INFO] Retrying request to /chat/completions in 0.889651 seconds
+2026-03-18 23:54:56,178 [ERROR] Ошибка при обработке сообщения от 1004724739: Connection error.
+Traceback (most recent call last):
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_transports\default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_sync\connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_sync\connection.py", line 101, in handle_request
+    raise exc
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_sync\connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_sync\connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_backends\sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 955, in _request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_transports\default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VSCode\Project\LLM BOTS\main.py", line 76, in handle_message
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+    ...<5 lines>...
+        temperature=0.7,
+    )
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_utils\_utils.py", line 279, in wrapper
+    return func(*args, **kwargs)
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 879, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<40 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 1242, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 919, in request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        cast_to=cast_to,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        retries_taken=retries_taken,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 979, in _request
+    return self._retry_request(
+           ~~~~~~~~~~~~~~~~~~~^
+        input_options,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        response_headers=None,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 1057, in _retry_request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        options=options,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        stream_cls=stream_cls,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 979, in _request
+    return self._retry_request(
+           ~~~~~~~~~~~~~~~~~~~^
+        input_options,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        response_headers=None,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 1057, in _retry_request
+    return self._request(
+           ~~~~~~~~~~~~~^
+        options=options,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        stream_cls=stream_cls,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\VSCode\Project\LLM BOTS\venv\Lib\site-packages\openai\_base_client.py", line 989, in _request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+2026-03-18 23:57:54,516 [ERROR] Infinity polling: polling exited
+2026-03-18 23:57:54,516 [ERROR] Break infinity polling
+2026-03-19 00:05:32,633 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 00:05:32,633 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 00:05:32,634 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 00:05:32,634 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 00:05:32,634 [INFO] Бот с контекстом запущен...
+2026-03-19 00:06:09,562 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/start'
+2026-03-19 00:06:09,563 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:06:10,365 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:06:10,371 [INFO] Ответ получен для 1004724739 | tokens: prompt=32, completion=15, total=47
+2026-03-19 00:13:37,043 [ERROR] Infinity polling: polling exited
+2026-03-19 00:13:37,044 [ERROR] Break infinity polling
+2026-03-19 00:13:42,186 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 00:13:42,186 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 00:13:42,187 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 00:13:42,187 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 00:13:42,187 [INFO] Бот с контекстом запущен...
+2026-03-19 00:15:23,294 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/start'
+2026-03-19 00:15:23,295 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:15:25,002 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:15:25,014 [INFO] Ответ получен для 1004724739 | tokens: prompt=142, completion=38, total=180
+2026-03-19 00:15:25,014 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:15:25,014 [INFO]   1. Пользователь инициировал взаимодействие с AI.
+2026-03-19 00:15:25,014 [INFO]   2. Пользователь использует команду /start.
+2026-03-19 00:15:51,270 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Привет. Собираюсь в Сочи'
+2026-03-19 00:15:51,271 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:15:52,847 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:15:52,852 [INFO] Ответ получен для 1004724739 | tokens: prompt=180, completion=69, total=249
+2026-03-19 00:15:52,853 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:15:52,853 [INFO]   1. Пользователь начал диалог с приветствия.
+2026-03-19 00:15:52,853 [INFO]   2. Пользователь сообщил о планах по поездке в Сочи.
+2026-03-19 00:16:15,521 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Какая погода в апреле?'
+2026-03-19 00:16:15,522 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:16:19,012 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:16:19,019 [INFO] Ответ получен для 1004724739 | tokens: prompt=234, completion=124, total=358
+2026-03-19 00:16:19,020 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:16:19,020 [INFO]   1. Пользователь собирается в Сочи.
+2026-03-19 00:16:19,020 [INFO]   2. Ассистент предлагает информацию о достопримечательностях, отелях и другой информации, связанной с поездкой.
+2026-03-19 00:16:19,021 [INFO]   3. Пользователь спрашивает о погоде в Сочи в апреле.
+2026-03-19 00:16:42,649 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'На Красной Поляне холоднее?'
+2026-03-19 00:16:42,650 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:16:45,438 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:16:45,442 [INFO] Ответ получен для 1004724739 | tokens: prompt=317, completion=131, total=448
+2026-03-19 00:16:45,443 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:16:45,443 [INFO]   1. Пользователь собирается в Сочи.
+2026-03-19 00:16:45,443 [INFO]   2. Ассистент сообщает о погоде в Сочи в апреле.
+2026-03-19 00:16:45,443 [INFO]   3. Пользователь интересуется, холоднее ли на Красной Поляне.
+2026-03-19 00:17:08,192 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Что посетить в Сочи'
+2026-03-19 00:17:08,194 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:17:13,911 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:17:13,914 [INFO] Ответ получен для 1004724739 | tokens: prompt=416, completion=325, total=741
+2026-03-19 00:17:13,914 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:17:13,914 [INFO]   1. Пользователь собирается в Сочи.
+2026-03-19 00:17:13,914 [INFO]   2. Апрельская погода в Сочи обычно теплая, средняя температура 12-18°C, возможны дожди.
+2026-03-19 00:17:13,915 [INFO]   3. На Красной Поляне в апреле холоднее, температура может быть на 5-10 градусов ниже, возможен снег.
+2026-03-19 00:43:40,074 [ERROR] Infinity polling: polling exited
+2026-03-19 00:43:40,075 [ERROR] Break infinity polling
+2026-03-19 00:44:42,707 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 00:44:42,707 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 00:44:42,707 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 00:44:42,707 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 00:44:42,707 [INFO] Бот с контекстом запущен...
+2026-03-19 00:44:49,073 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/start'
+2026-03-19 00:44:49,074 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:44:50,094 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:44:50,106 [INFO] Ответ получен для 1004724739 | tokens: prompt=209, completion=18, total=227
+2026-03-19 00:44:50,107 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:45:04,293 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Привет. Еду в Сочи.'
+2026-03-19 00:45:04,295 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:45:05,689 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:45:05,691 [INFO] Ответ получен для 1004724739 | tokens: prompt=247, completion=45, total=292
+2026-03-19 00:45:05,692 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:45:05,692 [INFO]   1. Пользователь едет в Сочи
+2026-03-19 00:45:18,656 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Нужна'
+2026-03-19 00:45:18,657 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:45:20,420 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:45:20,427 [INFO] Ответ получен для 1004724739 | tokens: prompt=286, completion=64, total=350
+2026-03-19 00:45:20,427 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:45:20,427 [INFO]   1. Пользователь хочет поехать в Сочи
+2026-03-19 00:45:20,427 [INFO]   2. Пользователь нуждается в помощи с планированием поездки или информацией о месте
+2026-03-19 00:45:34,759 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'советы по местам для посещения'
+2026-03-19 00:45:34,760 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:45:40,733 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:45:40,736 [INFO] Ответ получен для 1004724739 | tokens: prompt=331, completion=306, total=637
+2026-03-19 00:45:40,737 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:45:40,737 [INFO]   1. Пользователь хочет поехать в Сочи
+2026-03-19 00:45:40,737 [INFO]   2. Пользователь ищет советы по местам для посещения в Сочи
+2026-03-19 00:46:01,239 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'какая погода в Сочи в апреле обычно'
+2026-03-19 00:46:01,240 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:46:03,609 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:46:03,610 [INFO] Ответ получен для 1004724739 | tokens: prompt=613, completion=117, total=730
+2026-03-19 00:46:03,611 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:46:03,611 [INFO]   1. Пользователь хочет узнать о погоде в Сочи в апреле.
+2026-03-19 00:46:27,256 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Море еще холодное?'
+2026-03-19 00:46:27,257 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:46:30,897 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:46:30,903 [INFO] Ответ получен для 1004724739 | tokens: prompt=722, completion=134, total=856
+2026-03-19 00:46:30,903 [INFO] Тезисы диалога [1004724739]:
+2026-03-19 00:46:30,904 [INFO]   1. Пользователь хочет поехать в Сочи
+2026-03-19 00:46:30,904 [INFO]   2. Пользователь интересуется погодой в Сочи в апреле
+2026-03-19 00:46:30,905 [INFO]   3. Пользователь спрашивает о температуре моря в Сочи в апреле
+2026-03-19 00:55:38,249 [ERROR] Infinity polling: polling exited
+2026-03-19 00:55:38,251 [ERROR] Break infinity polling
+2026-03-19 00:55:42,624 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 00:55:42,624 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 00:55:42,624 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 00:55:42,624 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 00:55:42,624 [INFO] Бот с контекстом запущен...
+2026-03-19 00:56:05,069 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/start'
+2026-03-19 00:56:05,157 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:56:06,167 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:56:06,173 [INFO] Ответ получен для 1004724739 | tokens: prompt=200, completion=18, total=218
+2026-03-19 00:56:06,173 [INFO] Новые тезисы [1004724739]:
+2026-03-19 00:56:54,858 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'Хочу полететь в Сочи. Аэропорт работает?'
+2026-03-19 00:56:54,863 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 00:56:56,824 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 00:56:56,831 [INFO] Ответ получен для 1004724739 | tokens: prompt=244, completion=70, total=314
+2026-03-19 00:56:56,832 [INFO] Новые тезисы [1004724739]:
+2026-03-19 00:56:56,832 [INFO]   1. Пользователь хочет полететь в Сочи
+2026-03-19 00:56:56,832 [INFO]   2. Пользователь интересуется работой аэропорта в Сочи
+2026-03-19 00:56:56,892 [INFO] Сохранено 2 тезис(ов) для user_1004724739
+2026-03-19 01:03:15,614 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'какие основные достопримечательности в Cjxb'
+2026-03-19 01:03:15,619 [INFO] Загружено 2 тезис(ов) из БД для user_1004724739
+2026-03-19 01:03:15,619 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 01:03:21,622 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 01:03:21,628 [INFO] Ответ получен для 1004724739 | tokens: prompt=348, completion=239, total=587
+2026-03-19 01:03:21,629 [INFO] Новые тезисы [1004724739]:
+2026-03-19 01:03:21,629 [INFO]   1. Пользователь интересуется достопримечательностями в Сочи
+2026-03-19 01:03:21,690 [INFO] Сохранено 1 тезис(ов) для user_1004724739
+2026-03-19 01:04:06,291 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'в апреле нужна теплая одежда и зонты?'
+2026-03-19 01:04:06,296 [INFO] Загружено 3 тезис(ов) из БД для user_1004724739
+2026-03-19 01:04:06,296 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 01:04:09,220 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 01:04:09,222 [INFO] Ответ получен для 1004724739 | tokens: prompt=590, completion=118, total=708
+2026-03-19 01:04:09,223 [INFO] Новые тезисы [1004724739]:
+2026-03-19 01:04:09,224 [INFO]   1. Пользователь планирует поездку в Сочи в апреле
+2026-03-19 01:04:09,224 [INFO]   2. Пользователь интересуется погодой в Сочи в апреле
+2026-03-19 01:04:09,282 [INFO] Сохранено 2 тезис(ов) для user_1004724739
+2026-03-19 01:07:55,243 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/mytheses'
+2026-03-19 01:07:55,248 [INFO] Загружено 5 тезис(ов) из БД для user_1004724739
+2026-03-19 01:07:55,248 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 01:07:59,316 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 01:07:59,321 [INFO] Ответ получен для 1004724739 | tokens: prompt=712, completion=155, total=867
+2026-03-19 01:07:59,322 [INFO] Новые тезисы [1004724739]:
+2026-03-19 01:07:59,322 [INFO]   1. Пользователь хочет полететь в Сочи
+2026-03-19 01:07:59,322 [INFO]   2. Пользователь интересуется работой аэропорта в Сочи
+2026-03-19 01:07:59,322 [INFO]   3. Пользователь интересуется достопримечательностями в Сочи
+2026-03-19 01:07:59,322 [INFO]   4. Пользователь планирует поездку в Сочи в апреле
+2026-03-19 01:07:59,322 [INFO]   5. Пользователь интересуется погодой в Сочи в апреле
+2026-03-19 01:07:59,381 [INFO] Сохранено 5 тезис(ов) для user_1004724739
+2026-03-19 01:09:25,547 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'какие парки есть?'
+2026-03-19 01:09:25,552 [INFO] Загружено 10 тезис(ов) из БД для user_1004724739
+2026-03-19 01:09:25,552 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 01:09:31,890 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 01:09:31,895 [INFO] Ответ получен для 1004724739 | tokens: prompt=871, completion=275, total=1146
+2026-03-19 01:09:31,896 [INFO] Новые тезисы [1004724739]:
+2026-03-19 01:09:31,896 [INFO]   1. Пользователь интересуется парками в Сочи
+2026-03-19 01:09:31,961 [INFO] Сохранено 1 тезис(ов) для user_1004724739
+2026-03-19 01:12:04,093 [ERROR] Infinity polling: polling exited
+2026-03-19 01:12:04,094 [ERROR] Break infinity polling
+2026-03-19 01:12:07,572 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 01:12:07,573 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 01:12:07,573 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 01:12:07,573 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 01:12:07,573 [INFO] Бот с контекстом запущен...
+2026-03-19 01:12:29,313 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): 'какие рестораны стоит посетить?'
+2026-03-19 01:12:29,318 [INFO] Загружено 11 тезис(ов) из БД для user_1004724739
+2026-03-19 01:12:29,319 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 01:12:36,476 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 01:12:36,483 [INFO] Ответ получен для 1004724739 | tokens: prompt=371, completion=208, total=579
+2026-03-19 01:12:36,483 [INFO] Новые тезисы [1004724739]:
+2026-03-19 01:12:36,483 [INFO]   1. Пользователь интересуется ресторанами в Сочи
+2026-03-19 01:12:36,544 [INFO] Сохранено 1 тезис(ов) для user_1004724739
+2026-03-19 01:16:24,802 [INFO] Сообщение от Xeniia_gruzdova (id=1004724739): '/start'
+2026-03-19 01:16:24,803 [INFO] Загружено 12 тезис(ов) из БД для user_1004724739
+2026-03-19 01:16:24,803 [INFO] Отправка запроса к OpenAI для пользователя 1004724739...
+2026-03-19 01:16:25,595 [INFO] HTTP Request: POST https://api.proxyapi.ru/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-19 01:16:25,598 [INFO] Ответ получен для 1004724739 | tokens: prompt=580, completion=18, total=598
+2026-03-19 01:16:25,598 [INFO] Новые тезисы [1004724739]:
+2026-03-19 01:17:31,011 [ERROR] Infinity polling: polling exited
+2026-03-19 01:17:31,012 [ERROR] Break infinity polling
+2026-03-19 01:17:34,602 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 01:17:34,602 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 01:17:34,602 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 01:17:34,602 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 01:17:34,602 [INFO] Бот с контекстом запущен...
+2026-03-19 01:17:37,138 [INFO] /start от Xeniia_gruzdova (id=1004724739)
+2026-03-19 01:20:35,767 [ERROR] Infinity polling: polling exited
+2026-03-19 01:20:35,767 [ERROR] Break infinity polling
+2026-03-19 01:20:39,201 [INFO] TELEGRAM_BOT_TOKEN = 78602294...
+2026-03-19 01:20:39,201 [INFO] OPENAI_API_KEY = sk-AR2qt...
+2026-03-19 01:20:39,201 [INFO] OPENAI_BASE_URL = https://...
+2026-03-19 01:20:39,201 [INFO] OPENAI_BASE_URL: https://api.proxyapi.ru/openai/v1
+2026-03-19 01:20:39,201 [INFO] Бот с контекстом запущен...
+2026-03-19 01:20:44,709 [INFO] /start от Xeniia_gruzdova (id=1004724739)
+2026-03-19 01:20:47,257 [INFO] /mytheses от Xeniia_gruzdova (id=1004724739)
+2026-03-19 01:20:55,002 [INFO] /reset от Xeniia_gruzdova (id=1004724739)
+2026-03-19 01:20:55,073 [INFO] Очищено 12 тезис(ов) для user_1004724739
+2026-03-19 01:20:55,074 [INFO] Память сброшена для Xeniia_gruzdova (id=1004724739): 0 сообщений из истории, 12 тезисов из БД
+2026-03-19 01:21:01,734 [INFO] /mytheses от Xeniia_gruzdova (id=1004724739)
+2026-03-19 01:22:19,970 [ERROR] Infinity polling: polling exited
+2026-03-19 01:22:19,971 [ERROR] Break infinity polling
